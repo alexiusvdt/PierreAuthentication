@@ -1,20 +1,25 @@
 @{
   Layout = "_Layout";
 }
-
-<h2>Log in to manage treats/flavors</h2>
-<br>
-@if (User.Identity.IsAuthenticated)
-{
-  <p>Hello @User.Identity.Name!</p>
-  @using (Html.BeginForm("LogOff", "Account"))
-  {
-    <input type="submit" class="btn btn-primary" value="Log out" />
-  }
-}
-else
-{
-  <p>@Html.ActionLink("Register", "Register") || </p>
-  <p>@Html.ActionLink("Log in", "Login") || </p>
-}
+<div class="title">
+  <h2>Accounts</h2>
+</div>
+<br><br>
+<div class="main">
+  <div class="col">
+    @if (User.Identity.IsAuthenticated)
+    {
+      <p>Hello @User.Identity.Name!</p>
+      @using (Html.BeginForm("LogOff", "Account"))
+      {
+        <input type="submit" class="btn btn-primary" value="Log out" />
+      }
+    }
+    else
+    {
+      <p>@Html.ActionLink("Register", "Register") || </p>
+      <p>@Html.ActionLink("Log in", "Login") || </p>
+    }
+  </div>
+<div>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>
