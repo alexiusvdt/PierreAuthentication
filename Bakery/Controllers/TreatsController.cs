@@ -13,14 +13,14 @@ namespace Bakery.Controllers
 {
   public class TreatsController : Controller
   {
-    private readonly BakeryContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
+      private readonly BakeryContext _db;
+      private readonly UserManager<ApplicationUser> _userManager;
 
-    public HomeController(UserManager<ApplicationUser> userManager, BakeryContext db)
-    {
-      _userManager = userManager;
-      _db = db;
-    }
+      public TreatsController(UserManager<ApplicationUser> userManager, BakeryContext db)
+      {
+        _userManager = userManager;
+        _db = db;
+      }
 
     public ActionResult Index()
     {
@@ -126,7 +126,7 @@ namespace Bakery.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
+    
     [Authorize]
     [HttpPost]
     public ActionResult DeleteJoin(int joinId)
