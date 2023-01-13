@@ -70,7 +70,7 @@ namespace Bakery.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddEngineer(int id)
+    public ActionResult AddFlavor(int id)
     {
       Treat thisTreat = _db.Treats
         .Include(treat => treat.JoinEntities)

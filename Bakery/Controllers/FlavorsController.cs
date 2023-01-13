@@ -64,7 +64,7 @@ namespace Bakery.Controllers
       .ThenInclude(join => join.Treat)
       .FirstOrDefault(flavor => flavor.FlavorId == id);
 
-      ViewBag.MachineId = new SelectList(_db.Treats, "TreatId", "Name");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       ViewBag.PageTitle = $"Add a treat to {thisFlavor.Name}'s profile";
       return View(thisFlavor);
     }
@@ -75,7 +75,7 @@ namespace Bakery.Controllers
       #nullable enable
       FlavorTreat? joinEntity = _db.FlavorTreats.FirstOrDefault(join => (join.TreatId == treatId && join.FlavorId == flavor.FlavorId));
       #nullable disable
-      if (joinEntity == null && machineId != 0)
+      if (joinEntity == null && treatId != 0)
       {
         _db.FlavorTreats.Add(new FlavorTreat() { TreatId = treatId, FlavorId = flavor.FlavorId });
         _db.SaveChanges();
