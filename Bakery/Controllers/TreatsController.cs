@@ -53,7 +53,7 @@ namespace Bakery.Controllers
       }
     }
 
-    [Authorize]
+    
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treats

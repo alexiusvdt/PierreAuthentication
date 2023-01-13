@@ -20,10 +20,12 @@ A database application with authentication
  * Clone this repo 
  * Navigate to the `Bakery` directory, opening a command line interface
  * Enter the following commands:
- `dotnet add package Microsoft.EntityFrameworkCore.Design -v 6.0.0`
- `dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.0`
- * apply the database migrations by entering `dotnet ef database update'
- * in the `Bakery` directory create a file called appsettings.json and enter the following code, replacing the placeholder values with your ID and password:
+ ```
+ dotnet add package Microsoft.EntityFrameworkCore.Design -v 6.0.0
+ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.0
+ ```
+ * Apply the database migrations by entering `dotnet ef database update`
+ * In the `Bakery` directory create a file called appsettings.json and enter the following code, replacing the placeholder values with your ID and password:
  ```
  {
   "ConnectionStrings": {
@@ -35,6 +37,9 @@ A database application with authentication
 
 ## Known Bugs
 
+
+## Thanks
+* Anthony Bourdain, for his incredible legacy and passion
 
 ## License
 
