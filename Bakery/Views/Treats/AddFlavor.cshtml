@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Bakery.Models
+@model Bakery.Models.Treat
+
+<h4>Add an engineer qualified for this machine: @Html.DisplayFor(model => model.Name)</h4>
+
+<ul>
+  @foreach (FlavorTreat join in Model.JoinEntities)
+  {
+      <li><strong>@join.Flavor.Name</strong></li>
+    @using (Html.BeginForm("DeleteJoin", "Flavors"))
+    {
+      @Html.Hidden("joinId", @join.FlavorTreatId)
+      <input type="submit" value="Delete" />
+    }
+  }
+</ul>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TreatId)
+
+  @Html.Label("Select flavor")
+  @Html.DropDownList("FlavorId")
+
+  <input type="submit" value="Save" />
+}
+<br>
+<p>@Html.ActionLink("Back to list", "Index")</p>
