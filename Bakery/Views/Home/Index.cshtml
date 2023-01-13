@@ -1,0 +1,31 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Bakery.Models
+
+<h4>Flavors</h4>
+@if (Model["flavors"].Length == 0)
+{ 
+  <p>No flavors have been added.</p>
+}
+else
+{
+  @foreach (Flavor flavor in Model["flavors"])
+  {
+    @Html.ActionLink($"{@flavor.Name}", "Details", "Flavors", new { id = @flavor.FlavorId})<br>
+  }
+}
+
+<h4>Treats</h4>
+@if (Model["treats"].Length == 0)
+{
+  <p>No treats have been added.</p>
+}
+else
+{
+  @foreach (Treat treat in Model["treats"])
+  {
+    @Html.ActionLink($"{@treat.Name}", "Details", "Treats", new { id = @treat.TreatId})<br>
+  }
+}
