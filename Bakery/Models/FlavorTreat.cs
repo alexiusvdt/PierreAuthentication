@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Bakery.Models
 {
-  public class EngineerMachine
+  public class FlavorTreat
     {       
       public int FlavorTreatId { get; set; }
       public int FlavorId { get; set; }

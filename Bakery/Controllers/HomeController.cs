@@ -1,31 +1,28 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using PierreAuthentication.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Bakery.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace PierreAuthentication.Controllers;
-
-public class HomeController : Controller
+namespace Bakery.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+      private readonly BakeryContext _db;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+      public HomeController(BakeryContext db)
+      {
+        _db = db;
+      }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      [HttpGet("/")]
+      public ActionResult Index()
+      {
+        Flavor[] flavors = _db.Flavors.ToArray();
+        Treat[] treats = _db.Treats.ToArray();
+        Dictionary<string, object[]> model = new Dictionary<string, object[]>();
+        model.Add("flavors", flavors);
+        model.Add("treats", treats);
+        return View(model);
+      }
     }
 }
