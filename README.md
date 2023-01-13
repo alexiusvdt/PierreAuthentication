@@ -23,7 +23,14 @@ A database application with authentication
  `dotnet add package Microsoft.EntityFrameworkCore.Design -v 6.0.0`
  `dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.0`
  * apply the database migrations by entering `dotnet ef database update'
- * Modify the existing appsettings.json file with your individual username and password where prompted & make sure it is added to your .gitignore
+ * in the `Bakery` directory create a file called appsettings.json and enter the following code, replacing the placeholder values with your ID and password:
+ ```
+ {
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Port=3306;database=bakery;uid=[YOUR_ID];pwd=[YOUR_PASSWORD];"
+  }
+}
+ ```
  * run the program with `dotnet run`
 
 ## Known Bugs

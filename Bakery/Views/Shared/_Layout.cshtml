@@ -11,9 +11,20 @@
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
   <body>
-    <!-- @await Html.PartialAsync("Header") -->
-    <!-- @await Html.PartialAsync("Navbar") -->
-    @RenderBody()
-    <!-- @await Html.PartialAsync("Footer") -->
+    @await Html.PartialAsync("Header")
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          @await Html.PartialAsync("Navbar")
+        </div>
+        <div class="col-9">
+          <h3 class="text-center">@ViewBag.PageTitle</h3>
+          <div class="d-flex justify-content-center">
+            @RenderBody()
+          </div>
+        </div>
+      </div>
+    </div>
+    @await Html.PartialAsync("Footer")
   </body>
 </html>
