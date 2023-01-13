@@ -14,9 +14,11 @@ namespace Bakery.Controllers
   public class TreatsController : Controller
   {
     private readonly BakeryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(BakeryContext db)
+    public HomeController(UserManager<ApplicationUser> userManager, BakeryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -27,12 +29,14 @@ namespace Bakery.Controllers
       return View(model);
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       ViewBag.PageTitle = "Add New Treat";
       return View();
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Create(Treat treat)
     {
@@ -49,6 +53,7 @@ namespace Bakery.Controllers
       }
     }
 
+    [Authorize]
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treats
@@ -59,6 +64,7 @@ namespace Bakery.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
@@ -66,6 +72,7 @@ namespace Bakery.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Edit(Treat treat)
     {
@@ -74,6 +81,7 @@ namespace Bakery.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult AddFlavor(int id)
     {
       Treat thisTreat = _db.Treats
@@ -86,6 +94,7 @@ namespace Bakery.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult AddFlavor(Treat treat, int flavorId)
     {
@@ -100,6 +109,7 @@ namespace Bakery.Controllers
       return RedirectToAction("Details", new { id = treat.TreatId });
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
@@ -107,6 +117,7 @@ namespace Bakery.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -116,6 +127,7 @@ namespace Bakery.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult DeleteJoin(int joinId)
     {

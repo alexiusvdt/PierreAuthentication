@@ -11,9 +11,11 @@ namespace Bakery.Controllers
     public class HomeController : Controller
     {
       private readonly BakeryContext _db;
+      private readonly UserManager<ApplicationUser> _userManager;
 
-      public HomeController(BakeryContext db)
+      public HomeController(UserManager<ApplicationUser> userManager, BakeryContext db)
       {
+        _userManager = userManager;
         _db = db;
       }
 

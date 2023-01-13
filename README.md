@@ -19,7 +19,9 @@ A database application with authentication
 ## Setup/Installation Requirements
  * Clone this repo 
  * Navigate to the `Bakery` directory, opening a command line interface
- * Enter `dotnet add package Microsoft.EntityFrameworkCore.Design -v 6.0.0`
+ * Enter the following commands:
+ `dotnet add package Microsoft.EntityFrameworkCore.Design -v 6.0.0`
+ `dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.0`
  * apply the database migrations by entering `dotnet ef database update'
  * Modify the existing appsettings.json file with your individual username and password where prompted & make sure it is added to your .gitignore
  * run the program with `dotnet run`

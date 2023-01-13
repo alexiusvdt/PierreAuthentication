@@ -9,5 +9,6 @@ namespace Bakery.Models
     [Required(ErrorMessage = "This field cannot be blank! Try again.")]
     public string Name { get; set; }
     public List<FlavorTreat> JoinEntities { get; }
+    public ApplicationUser User { get; set; } 
   }
 }

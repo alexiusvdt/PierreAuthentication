@@ -14,19 +14,24 @@ namespace Bakery.Controllers
   public class FlavorsController : Controller
   {
     private readonly BakeryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(BakeryContext db)
+    public RecipesController(UserManager<ApplicationUser> userManager, BakeryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Flavor> userRecipes = _db.Recipes
+                          .Where(entry => entry.User.Id == currentUser.Id)
+                          // .Include(recipe => recipe.Name)
+                          .ToList();
       ViewBag.PageTitle = "View all flavors";
-      List<Flavor> FlavorList = _db.Flavors.Include(flavor => flavor.JoinEntities)
-          .ThenInclude(join => join.Treat).OrderByDescending(flavor => flavor.JoinEntities.Count).ToList();
-
-      return View(FlavorList);
+      return View(userRecipes);
     }
 
     public ActionResult Details(int id)
@@ -38,29 +43,35 @@ namespace Bakery.Controllers
       ViewBag.PageTitle = $"{thisFlavor.Name} Details";
       return View(thisFlavor);
     }
-
+    [Authorize]
     public ActionResult Create()
     {
       ViewBag.PageTitle = "Add a flavor";
       return View();
     }
 
+    [Authorize]
     [HttpPost]
-    public ActionResult Create(Flavor flavor)
+    public async Task<ActionResult> Create(Flavor flavor)
     {
-      ViewBag.PageTitle = "Flavors";
       if (!ModelState.IsValid)
       {
-        return View(flavor);
+          return View(flavor);
       }
       else
       {
-      _db.Flavors.Add(flavor);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        flavor.User = currentUser;
+        _db.Flavors.Add(flavor);
+        _db.SaveChanges();
+        ViewBag.PageTitle = "Add a flavor";
+        return RedirectToAction("Index");
       }
     }
+    
 
+    [Authorize]
     public ActionResult AddTreat(int id)
     {
       Flavor thisFlavor = _db.Flavors
@@ -73,6 +84,7 @@ namespace Bakery.Controllers
       return View(thisFlavor);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor, int treatId)
     {
@@ -85,15 +97,17 @@ namespace Bakery.Controllers
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = flavor.FlavorId });
-    }
+    }  
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
       ViewBag.PageTitle = $"Modify {thisFlavor.Name}";
       return View(thisFlavor);
     }
-
+    
+    [Authorize]
     [HttpPost]
     public ActionResult Edit(Flavor flavor)
     {
@@ -102,6 +116,7 @@ namespace Bakery.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]    
     public ActionResult Delete(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -109,6 +124,7 @@ namespace Bakery.Controllers
       return View(thisFlavor);
     }
 
+    [Authorize]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -118,6 +134,7 @@ namespace Bakery.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult DeleteJoin(int joinId)
     {
