@@ -2,8 +2,8 @@
   Layout = "_Layout";
 }
 
-<h2>Authentication with Identity</h2>
-<hr />
+<h2>Log in to manage treats/flavors</h2>
+<br>
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello @User.Identity.Name!</p>
@@ -14,7 +14,7 @@
 }
 else
 {
-  <p>@Html.ActionLink("Register", "Register")</p>
-  <p>@Html.ActionLink("Log in", "Login")</p>
+  <p>@Html.ActionLink("Register", "Register") || </p>
+  <p>@Html.ActionLink("Log in", "Login") || </p>
 }
 <p>@Html.ActionLink("Home", "Index", "Home")</p>

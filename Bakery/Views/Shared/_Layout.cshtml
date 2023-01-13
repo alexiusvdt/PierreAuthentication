@@ -17,9 +17,9 @@
         <div class="col">
           @await Html.PartialAsync("Navbar")
         </div>
-        <div class="col-9">
-          <h3 class="text-center">@ViewBag.PageTitle</h3>
-          <div class="d-flex justify-content-center">
+        <div class="col-10">
+          <h3 class="wrap">@ViewBag.PageTitle</h3>
+          <div class="d-flex">
             @RenderBody()
           </div>
         </div>
